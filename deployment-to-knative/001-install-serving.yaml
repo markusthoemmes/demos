@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-serving
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: knative-serving-subscription
+  generateName: knative-serving-
+  namespace: knative-serving
+spec:
+  source: knative-serving-operator
+  sourceNamespace: openshift-operator-lifecycle-manager
+  name: knative-serving-operator
+  channel: alpha
+---
+apiVersion: serving.knative.dev/v1alpha1
+kind: Install
+metadata:
+  name: knative-serving
+  namespace: knative-serving
